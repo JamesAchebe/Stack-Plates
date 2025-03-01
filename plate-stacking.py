@@ -2,12 +2,15 @@ plate_stack = []
 
 
 def read_required_string(prompt):
-    stringInput = input(f"{prompt}").strip()
-    if len(stringInput) == 0:
-        print("Value is required.")
-        return read_required_string(prompt)
-    else:
-        return stringInput
+    stringInput = ""
+    while len(stringInput) == 0:
+        stringInput = input(f"{prompt}").strip()
+        if len(stringInput) == 0:
+            print("Value is required.")
+            #return read_required_string(prompt)
+        #else:
+    
+    return stringInput
 
 def menu():
     main_menu = """
@@ -48,7 +51,10 @@ def add_plate():
     if plate_size.isdigit() is False or plate_size == "0":
         print("Invalid Plate Size")
         return add_plate()
-    elif stack_size > 1:
+    elif stack_size == 0:
+        plate_stack.append(int(plate_size))
+        print("Success!")
+    elif stack_size > 0:
         real_plate_size = int(plate_size)
         last_size = int(plate_stack[stack_size - 1])
         if real_plate_size > last_size:
@@ -56,9 +62,7 @@ def add_plate():
         else:
             plate_stack.append(real_plate_size)
             print("Success!")
-    else:
-        plate_stack.append(int(plate_size))
-        print("Success!")
+    
 
 def print_plates():
     plate_stack_size = len(plate_stack)
